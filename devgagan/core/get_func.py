@@ -595,7 +595,7 @@ class SmartTelegramBot:
             if free_check == 1:
                 # Free user - send with protection
                 reply_markup = InlineKeyboardMarkup([[
-                    InlineKeyboardButton("💎 Get Premium to Forward", url="https://t.me/kingofpatal")
+                    InlineKeyboardButton("💎 Get Premium to Forward", url="https://t.me/WabXBots")
                 ]])
                 await app.copy_message(target_chat_id, LOG_GROUP, result.id, protect_content=True, reply_markup=reply_markup)
             else:
@@ -912,13 +912,13 @@ class SmartTelegramBot:
     async def send_settings_panel(self, chat_id: int, user_id: int):
         """Send enhanced settings panel"""
         buttons = [
-            [Button.inline("Set Chat ID", b'setchat'), Button.inline("Set Rename Tag", b'setrename')],
-            [Button.inline("Caption", b'setcaption'), Button.inline("Replace Words", b'setreplacement')],
-            [Button.inline("Remove Words", b'delete'), Button.inline("Reset All", b'reset')],
-            [Button.inline("Session Login", b'addsession'), Button.inline("Logout", b'logout')],
-            [Button.inline("Set Thumbnail", b'setthumb'), Button.inline("Remove Thumbnail", b'remthumb')],
-            [Button.inline("PDF Watermark", b'pdfwt'), Button.inline("Video Watermark", b'watermark')],
-            [Button.inline("Upload Method", b'uploadmethod')],
+            [Button.inline("ᴜᴘʟᴏᴀᴅ ᴍᴇᴛʜᴏᴅ", b'uploadmethod')],
+            [Button.inline("📢 ꜱᴇᴛ ᴄʜᴀᴛ ɪᴅ", b'setchat'), Button.inline("🏷️ ꜱᴇᴛ ʀᴇɴᴀᴍᴇ ᴛᴀɢ", b'setrename')],
+            [Button.inline("📔 ꜱᴇᴛ ᴄᴀᴘᴛɪᴏɴ", b'setcaption'), Button.inline("ʀᴇᴘʟᴀᴄᴇ ᴡᴏʀᴅꜱ", b'setreplacement')],
+            [Button.inline("🔠 ʀᴇᴍᴏᴠᴇ ᴡᴏʀᴅꜱ", b'delete'), Button.inline("Reset All", b'reset')],
+            [Button.inline("ꜱᴇꜱꜱɪᴏɴ ʟᴏɢɪɴ", b'addsession'), Button.inline("ʟᴏɢ ᴏᴜᴛ", b'logout')],
+            [Button.inline("ꜱᴇᴛ ᴛʜᴜᴍʙɴᴀɪʟ", b'setthumb'), Button.inline("ʀᴇᴍ ᴛʜᴜᴍʙɴᴀɪʟ", b'remthumb')],
+            [Button.inline("ʀᴇꜱᴇᴛ ᴀʟʟ ♻️", b'uploadmethod')],
             [Button.url("Report Issues", "https://t.me/team_spy_pro")]
         ]
         
@@ -932,7 +932,7 @@ class SmartTelegramBot:
             "Select an option to get started!"
         )
         
-        await gf.send_file(chat_id, file=self.config.SETTINGS_PIC, caption=message, buttons=buttons)
+        await gf.send_file(chat_id, file="https://files.catbox.moe/k02uav.jpg", caption=message, buttons=buttons)
 
 # Initialize the main bot instance
 telegram_bot = SmartTelegramBot()
