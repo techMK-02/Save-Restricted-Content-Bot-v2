@@ -23,7 +23,7 @@ from devgagan import app
 from devgagan.core.func import *
 from datetime import datetime, timedelta
 from motor.motor_asyncio import AsyncIOMotorClient
-from config import MONGO_DB, WEBSITE_URL, AD_API, LOG_GROUP  
+from config import MONGO_DB, START_IMAGE_URL, WEBSITE_URL, AD_API, LOG_GROUP  
  
  
 tclient = AsyncIOMotorClient(MONGO_DB)
@@ -69,26 +69,26 @@ async def token_handler(client, message):
     join = await subscribe(client, message)
     if join == 1:
         return
-    chat_id = "save_restricted_content_bots"
-    msg = await app.get_messages(chat_id, 796)
     user_id = message.chat.id
     if len(message.command) <= 1:
-        image_url = "https://files.catbox.moe/ozmb83.jpg"
         join_button = InlineKeyboardButton("𝐉𝐨𝐢𝐧 𝐌𝐚𝐢𝐧 𝐂𝐡𝐚𝐧𝐧𝐞𝐥", url="https://t.me/wabxbots/3")
-        premium = InlineKeyboardButton("𝐑𝐞𝐩𝐨𝐫𝐭 𝐄𝐫𝐫𝐨𝐫𝐬", url="https://t.me/")   
+        premium = InlineKeyboardButton("𝐑𝐞𝐩𝐨𝐫𝐭 𝐄𝐫𝐫𝐨𝐫𝐬", url="https://t.me/")
+        help_button = InlineKeyboardButton("Help", callback_data="help_callback")
+        features_button = InlineKeyboardButton("Features", callback_data="features_callback")
         keyboard = InlineKeyboardMarkup([
             [join_button],   
-            [premium]    
+            [premium],
+            [help_button, features_button]    
         ])
          
         await message.reply_photo(
-            msg.photo.file_id,
+            START_IMAGE_URL,
             caption=(
-                "Hi 👋 Welcome, Wanna intro...?\n\n"
+                f"Hi {message.from_user.mention} 👋 Welcome, Wanna intro...?\n\n"
                 "**➭ Sᴀᴠᴇ ᴘᴏꜱᴛꜱ ғʀᴏᴍ ᴄʜᴀɴɴᴇʟꜱ ᴀɴᴅ ɢʀᴏᴜᴘꜱ ᴡʜᴇʀᴇ ғᴏʀᴡᴀʀᴅɪɴɢ ɪꜱ ʀᴇꜱᴛʀɪᴄᴛᴇᴅ**\n"
                 "**➭ Eᴀꜱɪʟʏ ғᴇᴛᴄʜ ᴍᴇꜱꜱᴀɢᴇꜱ ғʀᴏᴍ ᴘᴜʙʟɪᴄ ᴄʜᴀɴɴᴇʟꜱ ʙʏ ꜱᴇɴᴅɪɴɢ ᴛʜᴇɪʀ ᴘᴏꜱᴛ ʟɪɴᴋꜱ**\n"
                 "**➭ Fᴏʀ ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀɴɴᴇʟꜱ, ᴜꜱᴇ /ʟᴏɢɪɴ ᴛᴏ ᴀᴄᴄᴇꜱꜱ ᴄᴏɴᴛᴇɴᴛ ꜱᴇᴄᴜʀᴇʟʏ**\n\n"
-                "**📑 Fᴏʀ ᴍᴏʀᴇ ɪɴꜱᴛʀᴜᴄᴛɪᴏɴꜱ ꜱᴇɴᴅ /ʜᴇʟᴘ**"
+                "**📑 Fᴏʀ ᴍᴏʀᴇ ɪɴꜱᴛʀᴜᴄᴛɪᴏɴꜱ ꜱᴇɴᴅ /help**"
             ),
             reply_markup=keyboard
         )
@@ -147,3 +147,133 @@ async def smart_handler(client, message):
         )
         await message.reply("Click the button below to verify your free access token: \n\n> What will you get ? \n1. No time bound upto 3 hours \n2. Batch command limit will be FreeLimit + 20 \n3. All functions unlocked", reply_markup=button)
  
+@app.on_callback_query(filters.regex("help_callback"))
+async def help_callback_handler(client, callback_query: CallbackQuery):
+    help_text = """
+📝 **Bot Commands Overview:**
+
+1. **/add userID** - Add user to premium (Owner only)
+2. **/rem userID** - Remove user from premium (Owner only)
+3. **/transfer userID** - Transfer premium to another user
+4. **/login** - Log into the bot for private channel access
+5. **/batch** - Bulk extraction for posts (After login)
+6. **/logout** - Logout from the bot
+7. **/stats** - Get bot statistics
+8. **/plan** - Check premium plans
+9. **/speedtest** - Test the server speed
+10. **/terms** - Terms and conditions
+11. **/cancel** - Cancel ongoing batch process
+12. **/myplan** - Get details about your plans
+13. **/session** - Generate Pyrogram V2 session
+14. **/settings** - Personalize bot settings
+
+**Powered by Team SPY**
+    """
+    
+    back_button = InlineKeyboardMarkup([
+        [InlineKeyboardButton("« Back", callback_data="back_to_start")]
+    ])
+    
+    await callback_query.message.edit_text(help_text, reply_markup=back_button)
+    await callback_query.answer()
+
+
+@app.on_callback_query(filters.regex("features_callback"))
+async def features_callback_handler(client, callback_query: CallbackQuery):
+    features_text = """
+🚀 **Bot Features:**
+
+✅ **File Extraction**
+• Save posts from channels and groups where forwarding is restricted
+• Easily fetch messages from public channels by sending their post links
+• For private channels, use /login to access content securely
+
+✅ **Bulk Operations**
+• Download up to 100,000 files in a single batch command
+• Two modes available: /bulk and /batch
+• Automatic process management
+
+✅ **Premium Features**
+• Extended download limits
+• Priority processing
+• All functions unlocked
+• No time restrictions
+
+✅ **Security**
+• Secure session management
+• Safe private channel access
+• Protected data handling
+
+✅ **Additional Tools**
+• Speed test functionality
+• Session generation
+• Custom settings
+• Transfer capabilities
+
+**Ready to get started? Use /help for commands!**
+    """
+    
+    back_button = InlineKeyboardMarkup([
+        [InlineKeyboardButton("« Back", callback_data="back_to_start")]
+    ])
+    
+    await callback_query.message.edit_text(features_text, reply_markup=back_button)
+    await callback_query.answer()
+
+
+@app.on_callback_query(filters.regex("back_to_start"))
+async def back_to_start_handler(client, callback_query: CallbackQuery):
+    join_button = InlineKeyboardButton("𝐉𝐨𝐢𝐧 𝐌𝐚𝐢𝐧 𝐂𝐡𝐚𝐧𝐧𝐞𝐥", url="https://t.me/wabxbots/3")
+    premium = InlineKeyboardButton("𝐑𝐞𝐩𝐨𝐫𝐭 𝐄𝐫𝐫𝐨𝐫𝐬", url="https://t.me/")
+    help_button = InlineKeyboardButton("Help", callback_data="help_callback")
+    features_button = InlineKeyboardButton("Features", callback_data="features_callback")
+    keyboard = InlineKeyboardMarkup([
+        [join_button],   
+        [premium],
+        [help_button, features_button]    
+    ])
+    
+    start_text = (
+        f"Hi {callback_query.from_user.mention} 👋 Welcome, Wanna intro...?\n\n"
+        "**➭ Sᴀᴠᴇ ᴘᴏꜱᴛꜱ ғʀᴏᴍ ᴄʜᴀɴɴᴇʟꜱ ᴀɴᴅ ɢʀᴏᴜᴘꜱ ᴡʜᴇʀᴇ ғᴏʀᴡᴀʀᴅɪɴɢ ɪꜱ ʀᴇꜱᴛʀɪᴄᴛᴇᴅ**\n"
+        "**➭ Eᴀꜱɪʟʏ ғᴇᴛᴄʜ ᴍᴇꜱꜱᴀɢᴇꜱ ғʀᴏᴍ ᴘᴜʙʟɪᴄ ᴄʜᴀɴɴᴇʟꜱ ʙʏ ꜱᴇɴᴅɪɴɢ ᴛʜᴇɪʀ ᴘᴏꜱᴛ ʟɪɴᴋꜱ**\n"
+        "**➭ Fᴏʀ ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀɴɴᴇʟꜱ, ᴜꜱᴇ /ʟᴏɢɪɴ ᴛᴏ ᴀᴄᴄᴇꜱꜱ ᴄᴏɴᴛᴇɴᴛ ꜱᴇᴄᴜʀᴇʟʏ**\n\n"
+        "**📑 Fᴏʀ ᴍᴏʀᴇ ɪɴꜱᴛʀᴜᴄᴛɪᴏɴꜱ ꜱᴇɴᴅ /ʜᴇʟᴘ**"
+    )
+    
+    # Edit the current message to show the start content
+    await callback_query.message.edit_text(start_text, reply_markup=keyboard)
+    await callback_query.answer()
+
+
+@app.on_callback_query(filters.regex("start_photo"))
+async def start_photo_handler(client, callback_query: CallbackQuery):
+    # This callback will be used when we need to go back to the photo version
+    await callback_query.message.delete()
+    
+    join_button = InlineKeyboardButton("𝐉𝐨𝐢𝐧 𝐌𝐚𝐢𝐧 𝐂𝐡𝐚𝐧𝐧𝐞𝐥", url="https://t.me/wabxbots/3")
+    premium = InlineKeyboardButton("𝐑𝐞𝐩𝐨𝐫𝐭 𝐄𝐫𝐫𝐨𝐫𝐬", url="https://t.me/")
+    help_button = InlineKeyboardButton("Help", callback_data="help_callback")
+    features_button = InlineKeyboardButton("Features", callback_data="features_callback")
+    keyboard = InlineKeyboardMarkup([
+        [join_button],   
+        [premium],
+        [help_button, features_button]    
+    ])
+    
+    caption = (
+        f"Hi {callback_query.from_user.mention} 👋 Welcome, Wanna intro...?\n\n"
+        "**➭ Sᴀᴠᴇ ᴘᴏꜱᴛꜱ ғʀᴏᴍ ᴄʜᴀɴɴᴇʟꜱ ᴀɴᴅ ɢʀᴏᴜᴘꜱ ᴡʜᴇʀᴇ ғᴏʀᴡᴀʀᴅɪɴɢ ɪꜱ ʀᴇꜱᴛʀɪᴄᴛᴇᴅ**\n"
+        "**➭ Eᴀꜱɪʟʏ ғᴇᴛᴄʜ ᴍᴇꜱꜱᴀɢᴇꜱ ғʀᴏᴍ ᴘᴜʙʟɪᴄ ᴄʜᴀɴɴᴇʟꜱ ʙʏ ꜱᴇɴᴅɪɴɢ ᴛʜᴇɪʀ ᴘᴏꜱᴛ ʟɪɴᴋꜱ**\n"
+        "**➭ Fᴏʀ ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀɴɴᴇʟꜱ, ᴜꜱᴇ /ʟᴏɢɪɴ ᴛᴏ ᴀᴄᴄᴇꜱꜱ ᴄᴏɴᴛᴇɴᴛ ꜱᴇᴄᴜʀᴇʟʏ**\n\n"
+        "**📑 Fᴏʀ ᴍᴏʀᴇ ɪɴꜱᴛʀᴜᴄᴛɪᴏɴꜱ ꜱᴇɴᴅ /ʜᴇʟᴘ**"
+    )
+    
+    # Send a new message with the image from config
+    await callback_query.message.reply_photo(
+        START_IMAGE_URL,
+        caption=caption,
+        reply_markup=keyboard
+    )
+    
+    await callback_query.answer()
