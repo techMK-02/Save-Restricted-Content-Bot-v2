@@ -39,14 +39,14 @@ async def subscribe(app, message):
       try:
          user = await app.get_chat_member(update_channel, message.from_user.id)
          if user.status == "kicked":
-            await message.reply_text("You are Banned. Contact -- @devthanospmbot")
+            await message.reply_text("You are Banned. Contact -- @devgaganin")
             return 1
       except UserNotParticipant:
-        caption = f"**Pʟᴇᴀsᴇ ᴊᴏɪɴ ᴏᴜʀ ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴍᴇ ! 😊\n\nDᴜᴇ ᴛᴏ sᴇʀᴠᴇʀ ᴏᴠᴇʀʟᴏᴀᴅ, ᴏɴʟʏ ᴏᴜʀ ᴄʜᴀɴɴᴇʟ sᴜʙsᴄʀɪʙᴇʀs ᴄᴀɴ ᴜsᴇ ᴛʜɪs ʙᴏᴛ !**"
-        await message.reply_photo(photo="https://graph.org/file/862179277eb1d9a12930a-d7dd120c1e6b2f16eb.jpg",caption=caption, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔐 ᴊᴏɪɴ ɴᴏᴡ 🔐...", url=f"url")],[InlineKeyboardButton("🔃 ᴛʀʏ ᴀɢᴀɪɴ 🔃", url="https://t.me/savev3?start=start")]]))
+        caption = f"Join our channel to use the bot"
+        await message.reply_photo(photo="https://graph.org/file/d44f024a08ded19452152.jpg",caption=caption, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Join Now...", url=f"{url}")]]))
         return 1
       except Exception:
-         await message.reply_text("Something Went Wrong. Contact us @devthanospmbot...")
+         await message.reply_text("Something Went Wrong. Contact us @devgaganin...")
          return 1
 async def get_seconds(time_string):
     def extract_value_and_unit(ts):
