@@ -28,3 +28,4 @@ STRING = getenv("STRING", None)
 YT_COOKIES = getenv("YT_COOKIES", YTUB_COOKIES)
 DEFAULT_SESSION = getenv("DEFAUL_SESSION", None)  # added old method of invite link joining
 INSTA_COOKIES = getenv("INSTA_COOKIES", INST_COOKIES)
+START_IMAGE_URL = getenv("START_IMAGE_URL", "https://files.catbox.moe/8e2qqw.jpg")
