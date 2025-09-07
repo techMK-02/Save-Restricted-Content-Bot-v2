@@ -52,9 +52,9 @@ def get_readable_file_size(size_in_bytes) -> str:
         return 'File too large'
 
 
-@gagan.on(events.NewMessage(incoming=True, pattern='/speedtest'))
+@gagan.on(events.NewMessage(incoming=True, pattern='/speed'))
 async def speedtest(event):
-    speed = await event.reply("Running Speed Test. Wait about some secs.")  #edit telethon
+    speed = await event.reply("**⏱️ Wait I Am Checking My Server Speed.**")  #edit telethon
     test = Speedtest()
     test.get_best_server()
     test.download()
@@ -71,6 +71,7 @@ async def speedtest(event):
 ├ <b>Time:</b> <code>{result['timestamp']}</code>
 ├ <b>Data Sent:</b> <code>{get_readable_file_size(int(result['bytes_sent']))}</code>
 ╰ <b>Data Received:</b> <code>{get_readable_file_size(int(result['bytes_received']))}</code>
+
 ╭─《 🌐 SPEEDTEST SERVER 》
 ├ <b>Name:</b> <code>{result['server']['name']}</code>
 ├ <b>Country:</b> <code>{result['server']['country']}, {result['server']['cc']}</code>
@@ -78,6 +79,7 @@ async def speedtest(event):
 ├ <b>Latency:</b> <code>{result['server']['latency']}</code>
 ├ <b>Latitude:</b> <code>{result['server']['lat']}</code>
 ╰ <b>Longitude:</b> <code>{result['server']['lon']}</code>
+
 ╭─《 👤 CLIENT DETAILS 》
 ├ <b>IP Address:</b> <code>{result['client']['ip']}</code>
 ├ <b>Latitude:</b> <code>{result['client']['lat']}</code>
@@ -85,7 +87,7 @@ async def speedtest(event):
 ├ <b>Country:</b> <code>{result['client']['country']}</code>
 ├ <b>ISP:</b> <code>{result['client']['isp']}</code>
 ├ <b>ISP Rating:</b> <code>{result['client']['isprating']}</code>
-╰ <b>Powered by Team SPY</b> 
+╰ <b>Powered by @WavXBots</b> 
 '''
     try:
         await event.reply(string_speed,file=path,parse_mode='html')
