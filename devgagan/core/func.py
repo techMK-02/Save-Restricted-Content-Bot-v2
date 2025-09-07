@@ -43,10 +43,7 @@ async def subscribe(app, message):
             return 1
       except UserNotParticipant:
         caption = f"**Pʟᴇᴀsᴇ ᴊᴏɪɴ ᴏᴜʀ ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴍᴇ ! 😊\n\nDᴜᴇ ᴛᴏ sᴇʀᴠᴇʀ ᴏᴠᴇʀʟᴏᴀᴅ, ᴏɴʟʏ ᴏᴜʀ ᴄʜᴀɴɴᴇʟ sᴜʙsᴄʀɪʙᴇʀs ᴄᴀɴ ᴜsᴇ ᴛʜɪs ʙᴏᴛ !**"
-        await message.reply_photo(photo="https://files.catbox.moe/fh731v.jpg",caption=caption, reply_markup=InlineKeyboardMarkup([
-        [InlineKeyboardButton("🔐 ᴊᴏɪɴ ɴᴏᴡ 🔐", url=f"url")],
-        [InlineKeyboardButton("🔃 ᴛʀʏ ᴀɢᴀɪɴ 🔃", url=f"https://t.me/savev3?start=start")]
-        ]))
+        await message.reply_photo(photo="https://files.catbox.moe/fh731v.jpg" ,caption=caption, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔐 ᴊᴏɪɴ ɴᴏᴡ 🔐...", url=f"url")],[InlineKeyboardButton("🔃 ᴛʀʏ ᴀɢᴀɪɴ 🔃", url="https://t.me/savev3?start=start")]]))
         return 1
       except Exception:
          await message.reply_text("Something Went Wrong. Contact us @devthanospmbot...")
