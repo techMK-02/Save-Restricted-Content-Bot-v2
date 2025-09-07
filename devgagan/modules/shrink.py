@@ -73,9 +73,9 @@ async def token_handler(client, message):
     msg = await app.get_messages(chat_id, 796)
     user_id = message.chat.id
     if len(message.command) <= 1:
-        image_url = "https://i.postimg.cc/v8q8kGyz/startimg-1.jpg"
-        join_button = InlineKeyboardButton("Join Channel", url="https://t.me/team_spy_pro")
-        premium = InlineKeyboardButton("Get Premium", url="https://t.me/kingofpatal")   
+        image_url = "https://files.catbox.moe/ozmb83.jpg"
+        join_button = InlineKeyboardButton("𝐉𝐨𝐢𝐧 𝐌𝐚𝐢𝐧 𝐂𝐡𝐚𝐧𝐧𝐞𝐥", url="https://t.me/wabxbots/3")
+        premium = InlineKeyboardButton("𝐑𝐞𝐩𝐨𝐫𝐭 𝐄𝐫𝐫𝐨𝐫𝐬", url="https://t.me/")   
         keyboard = InlineKeyboardMarkup([
             [join_button],   
             [premium]    
@@ -85,8 +85,10 @@ async def token_handler(client, message):
             msg.photo.file_id,
             caption=(
                 "Hi 👋 Welcome, Wanna intro...?\n\n"
-                "✳️ I can save posts from channels or groups where forwarding is off. I can download videos/audio from YT, INSTA, ... social platforms\n"
-                "✳️ Simply send the post link of a public channel. For private channels, do /login. Send /help to know more."
+                "**➭ Sᴀᴠᴇ ᴘᴏꜱᴛꜱ ғʀᴏᴍ ᴄʜᴀɴɴᴇʟꜱ ᴀɴᴅ ɢʀᴏᴜᴘꜱ ᴡʜᴇʀᴇ ғᴏʀᴡᴀʀᴅɪɴɢ ɪꜱ ʀᴇꜱᴛʀɪᴄᴛᴇᴅ**\n"
+                "**➭ Eᴀꜱɪʟʏ ғᴇᴛᴄʜ ᴍᴇꜱꜱᴀɢᴇꜱ ғʀᴏᴍ ᴘᴜʙʟɪᴄ ᴄʜᴀɴɴᴇʟꜱ ʙʏ ꜱᴇɴᴅɪɴɢ ᴛʜᴇɪʀ ᴘᴏꜱᴛ ʟɪɴᴋꜱ**\n"
+                "**➭ Fᴏʀ ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀɴɴᴇʟꜱ, ᴜꜱᴇ /ʟᴏɢɪɴ ᴛᴏ ᴀᴄᴄᴇꜱꜱ ᴄᴏɴᴛᴇɴᴛ ꜱᴇᴄᴜʀᴇʟʏ**\n\n"
+                "**📑 Fᴏʀ ᴍᴏʀᴇ ɪɴꜱᴛʀᴜᴄᴛɪᴏɴꜱ ꜱᴇɴᴅ /ʜᴇʟᴘ**"
             ),
             reply_markup=keyboard
         )
